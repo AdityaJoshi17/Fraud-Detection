@@ -140,48 +140,41 @@ print('Best parameters: ', xgbc_cv.best_params_)
 print('Best score: ', xgbc_cv.best_score_)
 
 
+## 📌 Explanation
 
- Explanation:
-Fixed Parameters (param):
+### 🔧 Fixed Parameters (`param`):
 
-learning_rate: Controls the learning speed (0.1 is a common default).
+- **`learning_rate`**: Controls the learning speed (`0.1` is a common default).
+- **`verbosity`**: Level of output verbosity.
+- **`objective`**: Binary classification using logistic regression.
+- **`tree_method`**: Uses GPU for faster training (`gpu_hist`).
+- **`scale_pos_weight`**: Handles class imbalance by giving more weight to the minority class.
+- **`n_estimators`**: Number of boosting rounds (trees).
 
-verbosity: Level of output verbosity.
+---
 
-objective: Binary classification using logistic regression.
+### 📊 Hyperparameter Grid (`xgb_grid`):
 
-tree_method: Uses GPU for faster training (gpu_hist).
+- **`max_depth`**: Tree depth (controls model complexity).
+- **`min_child_weight`**: Minimum sum of instance weight in child nodes (controls overfitting).
+- **`gamma`**: Minimum loss reduction required to make a split.
+- **`subsample`**: Fraction of training samples used per tree.
+- **`colsample_bytree`**: Fraction of features used per tree.
 
-scale_pos_weight: Handles class imbalance by giving more weight to minority class.
+---
 
-n_estimators: Number of boosting rounds (trees).
+### ⚙️ GridSearchCV Setup:
 
-Hyperparameter Grid (xgb_grid):
+- Tries **all combinations** of values in `xgb_grid`.
+- Performs **3-fold cross-validation** (`cv=3`).
+- Uses **Average Precision (AUPRC)** as the evaluation metric (ideal for imbalanced datasets).
+- Uses **all available CPU cores** (`n_jobs=-1`) for faster computation.
+- Shows detailed output logs (`verbose=2`).
 
-max_depth: Tree depth (controls model complexity).
+---
 
-min_child_weight: Minimum sum of instance weight in child nodes (controls overfitting).
+### ✅ After Training:
 
-gamma: Minimum loss reduction for making a split.
+- **`best_params_`**: Shows the best combination of hyperparameters found.
+- **`best_score_`**: Shows the best AUPRC score obtained during tuning.
 
-subsample: Fraction of training samples used per tree.
-
-colsample_bytree: Fraction of features used per tree.
-
-GridSearchCV Setup:
-
-Tries all combinations of values in xgb_grid.
-
-Performs 3-fold cross-validation (cv=3).
-
-Uses Average Precision (AUPRC) as the evaluation metric (ideal for imbalanced datasets).
-
-Uses all available CPU cores (n_jobs=-1) for faster computation.
-
-Shows detailed output logs (verbose=2).
-
-After Training:
-
-best_params_: Shows the best combination of parameters.
-
-best_score_: Shows the best AUPRC score obtained during tuning.
