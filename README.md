@@ -2,6 +2,14 @@
 
 ---
 
+Review code : https://colab.research.google.com/drive/1qHO5qHIO23J4-mpmGFf8-m2-G-9TqabQ?usp=sharing
+
+Code With explain : https://colab.research.google.com/drive/1QUucu55H3qtQ_Giqhk591isC4jZZGqKc#scrollTo=EIGiwYsLMoOb
+
+Github Link : https://github.com/AdityaJoshi17/Fraud-Detection/tree/main
+
+---
+
 ## 1. ✅ Why is Fraud Detection Important?
 
 Fraud detection is crucial to protect financial systems and customers from unauthorized or suspicious activities. In industries like banking or e-commerce, fraud can lead to significant monetary losses, customer distrust, and legal consequences. Early and accurate detection helps in reducing these risks by flagging suspicious transactions for further investigation.
