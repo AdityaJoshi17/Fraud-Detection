@@ -181,6 +181,30 @@ print('Best score: ', xgbc_cv.best_score_)
 
 ---
 
+3-fold cross-validation is a model validation technique used to assess the performance of a machine learning model. Here's how it works:
+
+Steps:
+Split the dataset into 3 equal parts (folds).
+
+For each of the 3 iterations:
+
+Use 2 folds for training the model.
+
+Use the remaining 1 fold for testing (validation).
+
+Rotate the test fold each time so every fold is used once for validation.
+
+After 3 iterations, average the evaluation metrics (e.g., accuracy, precision, recall) from all 3 rounds to get a final performance estimate.
+
+Example:
+If you have data [A, B, C]:
+
+Iteration 1: Train on [B, C], test on [A]
+
+Iteration 2: Train on [A, C], test on [B]
+
+Iteration 3: Train on [A, B], test on [C]
+
 ### ✅ After Training:
 
 - **`best_params_`**: Shows the best combination of hyperparameters found.
