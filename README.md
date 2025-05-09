@@ -85,3 +85,103 @@ This improves performance by leveraging the strengths of both models.
 - AUPRC helps measure this more effectively in such scenarios.
 
 ---
+
+
+## 🔍 What is GridSearchCV?
+
+`GridSearchCV` is a method provided by `scikit-learn` that helps in **automatically tuning the best hyperparameters** for a model.
+
+### ✅ Key Features:
+- It tries **all combinations** of hyperparameter values you specify.
+- For each combination, it performs **cross-validation** (e.g., 3-fold).
+- It **evaluates each combination** using a scoring metric (like accuracy, AUC, or average precision).
+- Returns the **best combination** based on model performance.
+
+This is particularly useful in models like XGBoost, where performance depends heavily on the choice of hyperparameters.
+
+---
+
+## 🧠 XGBClassifier with GridSearchCV: Explanation
+
+```python
+from xgboost import XGBClassifier
+from sklearn.model_selection import GridSearchCV
+
+param = {
+    'learning_rate': 0.1,
+    'verbosity': 2,
+    'objective': 'binary:logistic',
+    'tree_method': 'gpu_hist',
+    'scale_pos_weight': scale_pos_weight,
+    'n_estimators': 300
+}
+
+xgb_grid = {
+    'max_depth': [3, 5, 7, 9],
+    'min_child_weight': [1, 3, 5],
+    'gamma': [0],
+    'subsample': [0.8],
+    'colsample_bytree': [0.8]
+}
+
+xgbc = XGBClassifier(**param)
+
+xgbc_cv = GridSearchCV(
+    estimator = xgbc,
+    param_grid = xgb_grid,
+    cv = 3,
+    scoring = 'average_precision',
+    n_jobs = -1,
+    verbose = 2
+)
+
+xgbc_cv.fit(X_train, y_train)
+print('Best parameters: ', xgbc_cv.best_params_)
+print('Best score: ', xgbc_cv.best_score_)
+
+
+
+ Explanation:
+Fixed Parameters (param):
+
+learning_rate: Controls the learning speed (0.1 is a common default).
+
+verbosity: Level of output verbosity.
+
+objective: Binary classification using logistic regression.
+
+tree_method: Uses GPU for faster training (gpu_hist).
+
+scale_pos_weight: Handles class imbalance by giving more weight to minority class.
+
+n_estimators: Number of boosting rounds (trees).
+
+Hyperparameter Grid (xgb_grid):
+
+max_depth: Tree depth (controls model complexity).
+
+min_child_weight: Minimum sum of instance weight in child nodes (controls overfitting).
+
+gamma: Minimum loss reduction for making a split.
+
+subsample: Fraction of training samples used per tree.
+
+colsample_bytree: Fraction of features used per tree.
+
+GridSearchCV Setup:
+
+Tries all combinations of values in xgb_grid.
+
+Performs 3-fold cross-validation (cv=3).
+
+Uses Average Precision (AUPRC) as the evaluation metric (ideal for imbalanced datasets).
+
+Uses all available CPU cores (n_jobs=-1) for faster computation.
+
+Shows detailed output logs (verbose=2).
+
+After Training:
+
+best_params_: Shows the best combination of parameters.
+
+best_score_: Shows the best AUPRC score obtained during tuning.
